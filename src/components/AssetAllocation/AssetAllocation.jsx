@@ -21,6 +21,8 @@ const AssetAllocation = () => {
     password: ''
   });
 
+  const [selectedSegment, setSelectedSegment] = useState('');
+
   const handleNextClick = () => {
     setShowAlert(true);
   };
@@ -47,18 +49,21 @@ const AssetAllocation = () => {
 
       if (response.ok) {
         const data = await response.json();
-        // Save token in cookie
+        // Save token in cookie with explicit options
         cookies.set('authToken', data.token, {
           path: '/',
           maxAge: 21600, // 6 hours in seconds
-          secure: process.env.NODE_ENV === 'production', // Use secure in production
-          sameSite: 'strict'
+          secure: false, // Set to false for local development
+          sameSite: 'lax',
         });
         
-        setShowLogin(false);
-        // Optional: Show success message or redirect
+        // Debug logs
+        console.log('Token saved:', data.token);
+        console.log('Cookie after save:', cookies.get('authToken'));
+        
+        // Force reload after setting cookie
+        window.location.reload();
       } else {
-        // Handle login error
         console.error('Login failed');
       }
     } catch (error) {
@@ -98,25 +103,30 @@ const AssetAllocation = () => {
                 placeholder={segment.title}
                 className="segment-field"
               />
-              <button className="more-options-btn">⋮</button>
+              <button className="edit-btn">✎</button>
             </div>
           ))}
         </div>
 
         <div className="bottom-row">
           <div className="segment-input">
-            <select className="segment-field">
-              <option value="" disabled selected>Enter Segment Title</option>
+            <select 
+              className="segment-field dropdown" 
+              value={selectedSegment} 
+              onChange={(e) => setSelectedSegment(e.target.value)}
+            >
+              <option value="" disabled>Enter segment title</option>
             </select>
+            <span className="dropdown-arrow">▼</span>
           </div>
           <button className="add-segment-btn">Add New Segment</button>
         </div>
+      </div>
 
-        <div className="navigation">
-          <button className="next-btn" onClick={handleNextClick}>
-            Next <span className="arrow">→</span>
-          </button>
-        </div>
+      <div className="navigation">
+        <button className="next-btn" onClick={handleNextClick}>
+          Next <span className="arrow">→</span>
+        </button>
       </div>
 
       {showAlert && (

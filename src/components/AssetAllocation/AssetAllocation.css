@@ -1,7 +1,9 @@
 .asset-allocation {
     max-width: 1200px;
     margin: 2rem auto;
-    padding: 0 2rem;
+    padding: 0 1px;
+    font-weight: 600;
+    
   }
   
   .header-section {
@@ -12,36 +14,39 @@
   }
   
   .header-section h2 {
-    font-size: 28px;
-    font-weight: 500;
-    color: #333;
+    font-size: 32px;
+    font-weight: 600;
+    color: #000;
   }
   
   .page-indicator {
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    border: 2px solid #eee;
+    border: 2px solid #e0e0e0;
     display: flex;
     align-items: center;
     justify-content: center;
     color: #666;
     font-size: 14px;
+    font-weight: 600;
   }
   
   .allocation-container {
     background: #f8f9fa;
-    padding: 2.5rem;
-    border-radius: 12px;
+    padding: 2rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
   }
   
   .level-indicator {
     display: inline-block;
     background: #1e3a3a;
     color: white;
-    padding: 8px 16px;
+    padding: 6px 12px;
     border-radius: 4px;
     font-size: 14px;
+    font-weight: 600;
     margin-bottom: 1.5rem;
   }
   
@@ -52,85 +57,90 @@
   .instruction p {
     font-size: 16px;
     color: #333;
-    line-height: 1.5;
     margin: 0;
+    font-weight: 600;
   }
   
   .segments-container {
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
     margin-bottom: 1rem;
-    flex-wrap: nowrap;
   }
   
   .segment-input {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 2px;
-    min-width: 200px;
   }
   
   .segment-field {
-    flex: 1;
-    padding: 12px 16px;
+    width: 100%;
+    padding: 10px 12px;
     border: 1px solid #e0e0e0;
     border-radius: 4px;
-    font-size: 12px;
+    font-size: 14px;
     background: white;
-    height: 45px;
-    width: 100%;
-    min-width: 0;
+    font-weight: 600;
   }
   
   .segment-field::placeholder {
-    color: #666;
+    font-weight: 600;
+    color: #333;
   }
   
-  .more-options-btn {
+  .edit-btn {
+    position: absolute;
+    right: 8px;
     background: none;
     border: none;
-    font-size: 20px;
     color: #666;
     cursor: pointer;
-    padding: 2px 2px;
+    font-size: 16px;
+    padding: 4px;
+    font-weight: 600;
+  }
+  
+  .bottom-row {
     display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
     align-items: center;
-    justify-content: center;
   }
   
-  .dropdown-input {
-    margin-bottom: 2rem;
-  }
-  
-  .dropdown-input select.segment-field {
-    color: #666;
+  .dropdown {
     appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1em;
+    padding-right: 30px;
+    width: 214px;
+  }
+  
+  .dropdown-arrow {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #666;
+    pointer-events: none;
+    font-size: 12px;
   }
   
   .add-segment-btn {
+    padding: 10px 16px;
+    border: 2px dashed #ccc;
     background: none;
-    border: 2px dashed #ddd;
-    padding: 12px;
-    width: 150px;
     border-radius: 4px;
     color: #666;
     cursor: pointer;
     font-size: 14px;
-  }
-  
-  .add-segment-btn:hover {
-    border-color: #999;
-    color: #333;
+    white-space: nowrap;
+    font-weight: 600;
+    width:220px;
   }
   
   .navigation {
     display: flex;
     justify-content: flex-end;
+    padding: 0 2rem;
   }
   
   .next-btn {
@@ -143,42 +153,35 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 15px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 100px;
   }
   
   .arrow {
     font-size: 18px;
   }
   
-  .bottom-row {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+  .next-btn:hover {
+    background: #45a049;
   }
   
-  .bottom-row .segment-field {
-    width: 200px;
-    background-color: white;
+  /* Responsive styles */
+  @media (max-width: 1024px) {
+    .segments-container {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
   
-  /* Responsive adjustments */
   @media (max-width: 768px) {
-    .asset-allocation {
-      padding: 0 1rem;
+    .segments-container {
+      grid-template-columns: repeat(2, 1fr);
     }
-    
-    .allocation-container {
-      padding: 1.5rem;
-    }
-    
-    .header-section h2 {
-      font-size: 24px;
-    }
-    
-    .page-indicator {
-      width: 40px;
-      height: 40px;
+  }
+  
+  @media (max-width: 480px) {
+    .segments-container {
+      grid-template-columns: 1fr;
     }
   }
   
@@ -305,4 +308,12 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 1rem;
+  }
+
+  select.segment-field {
+    font-weight: 600;
+  }
+
+  select.segment-field option {
+    font-weight: 600;
   }
