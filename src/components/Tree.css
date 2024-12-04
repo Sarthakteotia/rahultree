@@ -1,0 +1,77 @@
+.react-flow__node {
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  margin: 12px 0;
+}
+
+.react-flow__node-input {
+  background: #1B3B36;
+  color: white;
+  border-radius: 25px;
+  border: none;
+}
+
+.react-flow__edge-path {
+  stroke: #1B3B36;
+  stroke-width: 2;
+}
+
+.react-flow__edge {
+  marker-end: url(#react-flow__arrowhead);
+}
+
+.react-flow__arrowhead {
+  fill: #1B3B36;
+  transform: scale(1.2) translateY(-2px);
+}
+
+.custom-node {
+  padding: 15px 25px;
+  min-width: 200px;
+  text-align: center;
+  position: relative;
+  margin: 10px 0;
+}
+
+.react-flow__handle {
+  opacity: 0;
+  width: 10px;
+  height: 10px;
+}
+
+.react-flow__handle-top {
+  top: -8px;
+}
+
+.react-flow__handle-bottom {
+  bottom: -8px;
+}
+
+.react-flow__background {
+  background-color: #f8f8f8;
+}
+
+.node-context-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+}
+
+.node-context-menu button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border-radius: 4px;
+}
+
+.node-context-menu button:hover {
+  background: #f0f0f0;
+}
