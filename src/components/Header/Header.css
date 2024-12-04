@@ -1,29 +1,68 @@
 .header {
     padding: 1rem 2rem;
     background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #e0e0e0;
   }
   
   .header-container {
-    max-width: 1200px;
-    margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
   }
   
   .logo img {
     height: 40px;
   }
   
-  .nav-links {
+  .user-profile {
     display: flex;
-    gap: 2rem;
+    align-items: center;
+    gap: 12px;
+    padding: 8px;
+    cursor: pointer;
   }
   
-  .nav-links a {
-    text-decoration: none;
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    background-color: #f0f0f0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .initials {
+    font-size: 14px;
+    color: #666;
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+  
+  .user-name {
+    font-size: 14px;
+    font-weight: 500;
     color: #333;
+  }
+  
+  .user-email {
+    font-size: 12px;
+    color: #666;
+  }
+  
+  .dropdown-button {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 0 4px;
+    font-size: 12px;
   }
   
   .login-button {
