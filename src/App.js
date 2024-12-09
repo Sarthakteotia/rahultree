@@ -4,6 +4,7 @@ import Header from "./components/Header/Header";
 import AssetAllocation from "./components/AssetAllocation/AssetAllocation";
 import ComingSoon from "./components/ComingSoon/ComingSoon";
 import HomePage from "./components/HomePage/HomePage"; // Import HomePage component
+import Questionnaire from "./components/Questionnaire/Questionnaire";
 
 const App = () => {
   const cookies = new Cookies();
@@ -37,7 +38,7 @@ const App = () => {
     <div className="app">
       <Header />
       {isAuthenticated ? (
-        <ComingSoon />
+          <Questionnaire />
       ) : (
         <>
           <HomePage />
