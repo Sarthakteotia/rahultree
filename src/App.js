@@ -14,7 +14,7 @@ const App = () => {
   useEffect(() => {
     const checkAuth = () => {
       const token = cookies.get("authToken");
-      console.log("Current token:", token);
+      // console.log("Current token:", token);
       if (token) {
         setIsAuthenticated(true);
       } else {
