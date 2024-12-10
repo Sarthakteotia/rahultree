@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
+import { message } from 'antd';
+import Tree from "../Tree";
 
 const Questionnaire = () => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -7,6 +9,7 @@ const Questionnaire = () => {
   const [questionInputs, setQuestionInputs] = useState({});
   const [newItemTitle, setNewItemTitle] = useState("");
   const maxItems = 8;
+  const [treeData, setTreeData] = useState(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -451,14 +454,60 @@ const Questionnaire = () => {
     }
   };
 
+  const generateTreePayload = () => {
+    // Get level 1 (segments), level 5 (value streams), and level 7 (sub-activities) data
+    const segments = questionInputs[1] || [];
+    const valueStreams = questionInputs[5] || [];
+    const subActivities = questionInputs[7] || [];
+
+    // Find the level 1 question ID from the questions array
+    const level1Question = questions.find(q => q.level === 1);
+    
+    // Build the tree structure
+    const payload = {
+      type: "Value-Stream",
+      questionId: level1Question?._id,
+      name: level1Question?.title || "Primary Operating Segments",
+      children: segments.map(segment => ({
+        name: segment.value,
+        children: valueStreams.map(valueStream => ({
+          name: valueStream.value,
+          children: subActivities.map(activity => ({
+            name: activity.value
+          }))
+        }))
+      }))
+    };
+
+    return payload;
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const payload = generateTreePayload();
+      const response = await axios.post(
+        "http://localhost:5000/api/generate-tree",
+        payload
+      );
+      
+      if (response.data.success) {
+        setTreeData(response.data.data);
+      } else {
+        message.error("Failed to generate tree");
+      }
+    } catch (error) {
+      console.error("Error submitting data:", error);
+      message.error("Error generating tree");
+    }
+  };
+
   const handleNext = () => {
     if (currentQuestion < questions.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
       setNewItemTitle("");
-      console.log(
-        "Current Question Inputs:",
-        questionInputs[currentQuestion + 1]
-      );
+    } else {
+      // If we're on the last question, handle submission
+      handleSubmit();
     }
   };
 
@@ -640,6 +689,10 @@ const Questionnaire = () => {
           {currentQuestion === questions.length - 1 ? 'Complete & Submit →' : 'Next →'}
         </button>
       </div>
+  
+      {treeData ? (
+        <Tree treeData={treeData} />
+      ) : null}
     </div>
   );
 };
