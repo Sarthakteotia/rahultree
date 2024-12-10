@@ -259,98 +259,40 @@ const Questionnaire = () => {
       case 5:
         return (
           <div className="flex flex-col gap-4">
-            <div className="flex flex-wrap gap-4">
-              {currentInputs.map((input, idx) => (
-                <div key={input.id} className="relative w-full">
-                  <div className="flex items-center gap-4">
-                    <div className="w-[300px]">
-                      {input.fixed ? (
-                        <div className="w-full px-4 py-2.5 bg-gray-50 border border-gray-200 rounded text-sm text-gray-700">
-                          {input.title}
-                        </div>
-                      ) : (
-                        <div className="relative">
-                          <input
-                            type="text"
-                            value={input.value}
-                            onChange={(e) => handleInputChange(idx, e.target.value)}
-                            className="w-full px-4 py-2.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-green-500"
-                            placeholder="Enter value stream name"
-                          />
-                          <button 
-                            onClick={() => handleRemoveItem(idx)}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500"
-                          >
-                            ✕
-                          </button>
-                        </div>
-                      )}
-                    </div>
-      
-                    <div className="flex-1 relative">
-                      <select
-                        className={`w-full px-4 py-2.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-green-500 appearance-none
-                          ${input.fixed ? 'bg-gray-50' : 'bg-white'}`}
-                        value={input.selectedProduct || ''}
-                        onChange={(e) => handleProductSelect(idx, e.target.value)}
-                        disabled={input.fixed}
-                      >
-                        <option value="">Select Associated Products</option>
-                        <option value="product1">Product 1</option>
-                        <option value="product2">Product 2</option>
-                        <option value="product3">Product 3</option>
-                      </select>
-                      <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
-                        ▼
-                      </div>
-                    </div>
+            {currentInputs.map((input, idx) => (
+              <div key={input.id} className="flex items-center gap-4">
+                <div className="w-[200px]">
+                  <div className="w-full px-4 py-2.5 border border-gray-200 rounded text-sm">
+                    {`Value-Stream ${idx + 1}`}
                   </div>
-      
-                  {input.products && input.products.length > 0 && (
-                    <div className="mt-2 ml-[300px]">
-                      <div className="flex flex-wrap gap-2">
-                        {input.products.map((product, productIdx) => (
-                          <span 
-                            key={productIdx}
-                            className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 rounded text-sm"
-                          >
-                            {product}
-                            {!input.fixed && (
-                              <button
-                                onClick={() => handleRemoveProduct(idx, productIdx)}
-                                className="text-gray-400 hover:text-red-500"
-                              >
-                                ✕
-                              </button>
-                            )}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
-              ))}
-            </div>
-            
-            <div className="flex gap-3 items-center mt-4">
-              <div className="relative w-[300px]">
-                <input
-                  type="text"
-                  placeholder="Enter Value Stream Title"
-                  value={newItemTitle}
-                  onChange={(e) => setNewItemTitle(e.target.value)}
-                  className="w-full px-4 py-2.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-green-500"
-                />
+
+                <div className="flex-1 relative">
+                  <select
+                    className="w-full px-4 py-2.5 border border-gray-200 rounded text-sm focus:outline-none focus:border-green-500 appearance-none"
+                    value={input.selectedProduct || ''}
+                    onChange={(e) => handleProductSelect(idx, e.target.value)}
+                  >
+                    <option value="">Select Product</option>
+                    <option value="product1">Product 1</option>
+                    <option value="product2">Product 2</option>
+                    <option value="product3">Product 3</option>
+                  </select>
+                  <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none text-gray-500">
+                    ▼
+                  </div>
+                </div>
               </div>
-              <button
-                onClick={handleAddNewItem}
-                disabled={currentInputs.length >= maxItems}
-                className={`border-2 border-dashed border-gray-200 px-4 py-2 rounded text-gray-600 hover:border-green-500 hover:bg-gray-50 transition-colors text-sm
-                  ${currentInputs.length >= maxItems ? 'opacity-50 cursor-not-allowed' : ''}`}
-              >
-                Add New Value Stream
-              </button>
-            </div>
+            ))}
+            
+            <button
+              onClick={handleAddNewItem}
+              disabled={currentInputs.length >= maxItems}
+              className={`w-[200px] border-2 border-dashed border-gray-200 px-4 py-2 rounded text-gray-600 hover:border-green-500 hover:bg-gray-50 transition-colors text-sm
+                ${currentInputs.length >= maxItems ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              Add New Value-Stream
+            </button>
           </div>
         );
       case 6:
