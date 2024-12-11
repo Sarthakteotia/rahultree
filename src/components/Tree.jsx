@@ -116,9 +116,9 @@ const Tree = ({ treeData, onConfirm }) => {
     <div className="w-full h-screen bg-gray-50">
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-2">Value-Stream View</h2>
-        <p className="text-sm text-gray-600">
+        {/* <p className="text-sm text-gray-600">
           Does this structure accurately represent your firm segments and value-streams?
-        </p>
+        </p> */}
       </div>
       
       <ReactFlow
