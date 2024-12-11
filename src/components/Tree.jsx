@@ -8,9 +8,8 @@ import ReactFlow, {
   Handle,
 } from 'reactflow';
 import 'reactflow/dist/style.css';
-import { message } from 'antd';
 
-const Tree = ({ treeData }) => {
+const Tree = ({ treeData, onConfirm }) => {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
@@ -41,7 +40,6 @@ const Tree = ({ treeData }) => {
           className: 'bg-white rounded-lg border border-gray-200 px-6 py-3 min-w-[200px] text-center'
         });
 
-        // Edge from root to segment
         newEdges.push({
           id: `e1-${segmentId}`,
           source: '1',
@@ -61,7 +59,6 @@ const Tree = ({ treeData }) => {
             className: 'bg-white rounded-lg border border-gray-200 px-6 py-3 min-w-[200px] text-center'
           });
 
-          // Edge from segment to value stream
           newEdges.push({
             id: `e${segmentId}-${streamId}`,
             source: segmentId,
@@ -70,7 +67,7 @@ const Tree = ({ treeData }) => {
             className: 'stroke-[#1B3B36] stroke-2'
           });
 
-          // Sub-activities (Level 7)
+          // Activities (Level 7)
           valueStream.children.forEach((activity, activityIndex) => {
             const activityId = `activity-${nodeId++}`;
             
@@ -81,7 +78,6 @@ const Tree = ({ treeData }) => {
               className: 'bg-white rounded-lg border border-gray-200 px-6 py-3 min-w-[200px] text-center'
             });
 
-            // Edge from value stream to activity
             newEdges.push({
               id: `e${streamId}-${activityId}`,
               source: streamId,
@@ -120,7 +116,9 @@ const Tree = ({ treeData }) => {
     <div className="w-full h-screen bg-gray-50">
       <div className="p-4">
         <h2 className="text-xl font-semibold mb-2">Value-Stream View</h2>
-        <p className="text-sm text-gray-600">Combines 1, 5 and 7 questions</p>
+        <p className="text-sm text-gray-600">
+          Does this structure accurately represent your firm segments and value-streams?
+        </p>
       </div>
       
       <ReactFlow
@@ -140,10 +138,16 @@ const Tree = ({ treeData }) => {
       </ReactFlow>
 
       <div className="absolute bottom-4 right-4 flex gap-4">
-        <button className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100">
+        <button 
+          onClick={() => onConfirm(false)}
+          className="px-4 py-2 rounded-md border border-gray-300 hover:bg-gray-100"
+        >
           No
         </button>
-        <button className="px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600">
+        <button 
+          onClick={() => onConfirm(true)}
+          className="px-4 py-2 rounded-md bg-green-500 text-white hover:bg-green-600"
+        >
           Yes
         </button>
       </div>

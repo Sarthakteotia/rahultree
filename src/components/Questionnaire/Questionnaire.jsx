@@ -10,6 +10,7 @@ const Questionnaire = () => {
   const [newItemTitle, setNewItemTitle] = useState("");
   const maxItems = 8;
   const [treeData, setTreeData] = useState(null);
+  const [showTree, setShowTree] = useState(false);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -492,6 +493,7 @@ const Questionnaire = () => {
       
       if (response.data.success) {
         setTreeData(response.data.data);
+        setShowTree(true);
       } else {
         message.error("Failed to generate tree");
       }
@@ -653,6 +655,10 @@ const Questionnaire = () => {
     });
   };
 
+  if (showTree && treeData) {
+    return <Tree treeData={treeData} />;
+  }
+
   return (
     <div className="max-w-[1200px] mx-auto p-5">
       <div className="flex justify-between items-center mb-5">
@@ -689,10 +695,6 @@ const Questionnaire = () => {
           {currentQuestion === questions.length - 1 ? 'Complete & Submit →' : 'Next →'}
         </button>
       </div>
-  
-      {treeData ? (
-        <Tree treeData={treeData} />
-      ) : null}
     </div>
   );
 };
